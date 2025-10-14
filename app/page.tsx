@@ -13,7 +13,9 @@ export default function TutoringLanding() {
       {/* Top bar */}
       <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <span className="text-xl font-semibold">אפרת כהן · שיעורים פרטיים</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-semibold">אפרת כהן · שיעורים פרטיים</span>
+          </div>
           <a href="#contact" className="px-4 py-2 rounded-2xl shadow-sm bg-teal-600 text-white hover:bg-teal-700 transition">
             דברו איתי עכשיו
           </a>
@@ -93,7 +95,7 @@ export default function TutoringLanding() {
         </div>
       </section>
 
-      {/* Contact Form (no backend yet) */}
+      {/* Contact Form (local only) */}
       <section id="contact" className="px-4 mt-14 mb-20">
         <div className="max-w-3xl mx-auto">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-xl">
@@ -122,9 +124,7 @@ export default function TutoringLanding() {
                 <textarea name="message" rows={4} className="w-full rounded-2xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="ספרו לנו בקצרה מה הצורך" />
               </div>
               <div className="md:col-span-2 flex flex-col md:flex-row items-start md:items-center gap-3">
-                <button type="submit" className="rounded-2xl px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 shadow transition">
-                  שלחו פרטים
-                </button>
+                <button type="submit" className="rounded-2xl px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 shadow transition">שלחו פרטים</button>
                 <a href="tel:0546154115" className="rounded-2xl px-6 py-3 border border-slate-300 hover:bg-white shadow-sm transition">או התקשרו: 054-6154115</a>
               </div>
               <p id="form-success" className="hidden md:col-span-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-2xl p-3 mt-2">
