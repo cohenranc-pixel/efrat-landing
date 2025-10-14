@@ -3,8 +3,8 @@
 export default function TutoringLanding() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const ok = document.getElementById('form-success');
-    if (ok) ok.classList.remove('hidden');
+    const el = document.getElementById('form-success');
+    if (el) el.classList.remove('hidden');
     (e.target as HTMLFormElement).reset();
   }
 
@@ -26,25 +26,27 @@ export default function TutoringLanding() {
       <section className="relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 py-12 md:py-16 grid md:grid-cols-2 items-center gap-8">
           <div className="order-2 md:order-1">
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.1] mb-4">ללמוד. להבין. להצליח</h1>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.1] mb-4">
+              ללמוד. להבין. להצליח
+            </h1>
             <p className="text-lg md:text-xl text-slate-600 mb-6">
               שיעורים פרטיים והוראה מותאמת במקצועות רבי־מלל, <span className="font-semibold">עם התמחות באנגלית</span> — כולל הכנה לבגרויות. דגש על פיתוח מיומנויות למידה, אסטרטגיות וכלים להצלחה.
             </p>
             <ul className="space-y-2 text-slate-700">
-              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600" /> הוראה מותאמת אישית, יחס חם ואמון.</li>
-              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600" /> בניית ביטחון עצמי בלמידה ותחושת מסוגלות.</li>
-              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600" /> מפגשים אישיים או קבוצתיים — פרונטלי (במודיעין) או בזום.</li>
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> הוראה מותאמת אישית, יחס חם ואמון.</li>
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> בניית ביטחון עצמי בלמידה ותחושת מסוגלות.</li>
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> מפגשים אישיים או קבוצתיים — פרונטלי (מתקיימים במודיעין) או מקוונים מרחוק (בזום).</li>
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> מעל 13 שנות ניסיון בהוראה מותאמת והגשה לבגרויות.</li>
             </ul>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#contact" className="px-5 py-3 rounded-2xl shadow bg-teal-600 text-white hover:bg-teal-700 transition text-lg">השאירו פרטים</a>
               <a href="tel:0546154115" className="px-5 py-3 rounded-2xl shadow border border-slate-300 hover:bg-white transition text-lg">☎️ 054-6154115</a>
             </div>
           </div>
-
           <div className="order-1 md:order-2">
             <div className="relative mx-auto max-w-md">
-              <div className="absolute -top-10 -left-10 w-44 h-44 rounded-full bg-teal-200/50 blur-2xl" />
-              <div className="absolute -bottom-10 -right-10 w-56 h-56 rounded-full bg-sky-200/50 blur-2xl" />
+              <div className="absolute -top-10 -left-10 w-44 h-44 rounded-full bg-teal-200/50 blur-2xl"/>
+              <div className="absolute -bottom-10 -right-10 w-56 h-56 rounded-full bg-sky-200/50 blur-2xl"/>
               <div className="relative rounded-3xl p-6 md:p-8 bg-white shadow-xl border border-slate-100">
                 <div className="text-center">
                   <div className="text-6xl">📚</div>
@@ -67,13 +69,17 @@ export default function TutoringLanding() {
       <section className="px-4">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-4 md:gap-6">
           {[
-            { title: 'M.Ed — תואר שני בחינוך ולמידה', body: 'הוראה דידקטית במקצועות רבי־מלל וגישת הוראה מותאמת גיל.' },
-            { title: 'שיטות שעובדות', body: 'אסטרטגיות למידה וכלים פרקטיים שמעלים את הביטחון ואת ההישגים.' },
-            { title: 'ליווי מותאם', body: 'פרונטלי (במקומות נבחרים) או אונליין בזום — מה שנוח למשפחה.' },
+            {title: 'תואר שני בלקויות למידה', body: `הוראה מותאמת במקצועות רבי־מלל וגישת הוראה מותאמת גיל.
+הוראה מותאמת מתמטיקה
+הוראה מותאמת אנגלית
+הכנה לבגרויות`},
+            {title: 'שיטות שעובדות', body: 'אסטרטגיות למידה וכלים פרקטיים שמעלים את הביטחון ואת ההישגים.'},
+            {title: 'ליווי מותאם', body: `גילאי בית ספר יסודי עד תיכון.
+פרונטלי (במקומות נבחרים) או אונליין בזום — מה שנוח למשפחה.`},
           ].map((card, i) => (
             <div key={i} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
-              <p className="text-slate-600 leading-relaxed">{card.body}</p>
+              <p className="text-slate-600 leading-relaxed whitespace-pre-line">{card.body}</p>
             </div>
           ))}
         </div>
@@ -95,7 +101,7 @@ export default function TutoringLanding() {
         </div>
       </section>
 
-      {/* Contact Form (local only) */}
+      {/* Contact Form */}
       <section id="contact" className="px-4 mt-14 mb-20">
         <div className="max-w-3xl mx-auto">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-xl">
@@ -127,9 +133,7 @@ export default function TutoringLanding() {
                 <button type="submit" className="rounded-2xl px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 shadow transition">שלחו פרטים</button>
                 <a href="tel:0546154115" className="rounded-2xl px-6 py-3 border border-slate-300 hover:bg-white shadow-sm transition">או התקשרו: 054-6154115</a>
               </div>
-              <p id="form-success" className="hidden md:col-span-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-2xl p-3 mt-2">
-                תודה! הפרטים התקבלו ונחזור אליכם בהקדם.
-              </p>
+              <p id="form-success" className="hidden md:col-span-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-2xl p-3 mt-2">תודה! הפרטים התקבלו ונחזור אליכם בהקדם.</p>
             </form>
           </div>
         </div>
