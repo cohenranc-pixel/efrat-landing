@@ -1,102 +1,143 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+export default function TutoringLanding() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+    <div dir="rtl" className="min-h-screen bg-gradient-to-b from-sky-50 to-white text-gray-800">
+      {/* Top bar */}
+      <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-semibold">אפרת כהן · שיעורים פרטיים</span>
+          </div>
+          <a href="#contact" className="px-4 py-2 rounded-2xl shadow-sm bg-teal-600 text-white hover:bg-teal-700 transition">
+            דברו איתי עכשיו
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </header>
+
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 py-12 md:py-16 grid md:grid-cols-2 items-center gap-8">
+          <div className="order-2 md:order-1">
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.1] mb-4">
+              ללמוד. להבין. להצליח
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600 mb-6">
+              שיעורים פרטיים והוראה מותאמת במקצועות רבי־מלל, <span className="font-semibold">עם התמחות באנגלית</span> — כולל הכנה לבגרויות. דגש על פיתוח מיומנויות למידה, אסטרטגיות וכלים להצלחה.
+            </p>
+            <ul className="space-y-2 text-slate-700">
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> הוראה מותאמת אישית, יחס חם ואמון.</li>
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> בניית ביטחון עצמי בלמידה ותחושת מסוגלות.</li>
+              <li className="flex items-start gap-2"><span className="mt-1 h-2 w-2 rounded-full bg-teal-600"/> מפגשים אישיים או קבוצתיים — פרונטלי (מתקיימים במודיעין) או מקוונים מרחוק (בזום).</li>
+            </ul>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a href="#contact" className="px-5 py-3 rounded-2xl shadow bg-teal-600 text-white hover:bg-teal-700 transition text-lg">השאירו פרטים</a>
+              <a href="tel:0546154115" className="px-5 py-3 rounded-2xl shadow border border-slate-300 hover:bg-white transition text-lg">☎️ 054-6154115</a>
+            </div>
+          </div>
+          <div className="order-1 md:order-2">
+            <div className="relative mx-auto max-w-md">
+              <div className="absolute -top-10 -left-10 w-44 h-44 rounded-full bg-teal-200/50 blur-2xl"/>
+              <div className="absolute -bottom-10 -right-10 w-56 h-56 rounded-full bg-sky-200/50 blur-2xl"/>
+              <div className="relative rounded-3xl p-6 md:p-8 bg-white shadow-xl border border-slate-100">
+                <div className="text-center">
+                  <div className="text-6xl">📚</div>
+                  <p className="mt-3 text-slate-600">למידה שמרגישה בטוח, אישי ונעים.</p>
+                </div>
+                <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
+                  <div className="rounded-2xl border p-3 shadow-sm">אנגלית לבי"ס יסודי</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">אנגלית לחטיבה</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הבנת הנקרא</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הכנה לבגרות</div>
+                </div>
+                <a href="#contact" className="mt-6 block text-center w-full rounded-2xl py-3 bg-slate-900 text-white hover:bg-black transition">בואו נדבר</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Credibility */}
+      <section className="px-4">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-4 md:gap-6">
+          {[
+            {title: 'M.Ed — תואר שני בחינוך ולמידה', body: 'הוראה דידקטית במקצועות רבי־מלל וגישת הוראה מותאמת גיל.'},
+            {title: 'שיטות שעובדות', body: 'אסטרטגיות למידה וכלים פרקטיים שמעלים את הביטחון ואת ההישגים.'},
+            {title: 'ליווי מותאם', body: 'פרונטלי (במקומות נבחרים) או אונליין בזום — מה שנוח למשפחה.'},
+          ].map((card, i) => (
+            <div key={i} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
+              <p className="text-slate-600 leading-relaxed">{card.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="px-4 mt-12">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">מה הורים מספרים</h2>
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+            {[
+              '״אחרי חודש עם אפרת – הילדה חזרה לאהוב אנגלית.״',
+              '״סוף סוף הוא ניגש למבחנים בביטחון, תודה!״',
+              '״מקצועיות וסבלנות שאין כמוהן. ממליצים בחום.״',
+            ].map((q, i) => (
+              <blockquote key={i} className="rounded-3xl bg-white border border-slate-200 p-5 shadow-sm text-slate-700">{q}</blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form */}
+      <section id="contact" className="px-4 mt-14 mb-20">
+        <div className="max-w-3xl mx-auto">
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-xl">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">נשמח לשוחח ולהתאים מסלול אישי</h2>
+            <p className="text-slate-600 mb-6">השאירו פרטים קצרים ונחזור אליכם בהקדם.</p>
+
+            <form onSubmit={(e) => { e.preventDefault(); const el = document.getElementById('form-success'); if (el) el.classList.remove('hidden'); }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">שם ההורה</label>
+                <input required className="w-full rounded-2xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="לדוגמה: דנה כהן" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">טלפון</label>
+                <input type="tel" required className="w-full rounded-2xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="054-0000000" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">כיתה/גיל</label>
+                <input className="w-full rounded-2xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="ד׳ / 10" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">מקצוע/מיקוד</label>
+                <input className="w-full rounded-2xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="אנגלית / הבנת הנקרא / בגרות" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium mb-1">הודעה (רשות)</label>
+                <textarea rows={4} className="w-full rounded-2xl border border-slate-300 p-3 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="ספרו לנו בקצרה מה הצורך" />
+              </div>
+              <div className="md:col-span-2 flex flex-col md:flex-row items-start md:items-center gap-3">
+                <button type="submit" className="rounded-2xl px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 shadow transition">שלחו פרטים</button>
+                <a href="tel:0546154115" className="rounded-2xl px-6 py-3 border border-slate-300 hover:bg-white shadow-sm transition">או התקשרו: 054-6154115</a>
+              </div>
+              <p id="form-success" className="hidden md:col-span-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-2xl p-3 mt-2">תודה! הפרטים התקבלו ונחזור אליכם בהקדם.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* Sticky mobile CTA */}
+      <a href="#contact" className="fixed md:hidden bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full shadow-xl bg-slate-900 text-white">
+        השאירו פרטים
+      </a>
+
+      {/* Footer */}
+      <footer className="px-4 pb-10">
+        <div className="max-w-5xl mx-auto text-center text-slate-500">
+          <p>© {new Date().getFullYear()} אפרת כהן — שיעורים פרטיים</p>
+          <p className="mt-1">פרונטלי (במקומות נבחרים) או בזום · התמחות באנגלית · הכנה לבגרויות</p>
+        </div>
       </footer>
     </div>
   );
