@@ -1,12 +1,33 @@
 'use client';
+// Revision 1.2 — POST form data to n8n via NEXT_PUBLIC_N8N_WEBHOOK_URL
 import type { FormEvent } from 'react';
 
 export default function TutoringLanding() {
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const el = document.getElementById('form-success') as HTMLParagraphElement | null;
-    if (el) el.classList.remove('hidden');
-    e.currentTarget.reset();
+
+    const fd = new FormData(e.currentTarget);
+    const payload = Object.fromEntries(fd.entries());
+
+    try {
+      const url = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL as string;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        document.getElementById('form-success')?.classList.remove('hidden');
+        e.currentTarget.reset();
+      } else {
+        console.error('n8n webhook failed', res.status);
+        // Optional: surface a friendly message to users in production
+      }
+    } catch (err) {
+      console.error('Network error posting to n8n', err);
+      // Optional: surface a friendly message to users in production
+    }
   }
 
   return (
@@ -56,7 +77,7 @@ export default function TutoringLanding() {
                 <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
                   <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת רבי מלל</div>
                   <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת מתמטיקה</div>
-                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת אנגלית</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת אנגלית הנקרא</div>
                   <div className="rounded-2xl border p-3 shadow-sm">הכנה לבגרויות</div>
                 </div>
                 <a href="#contact" className="mt-6 block text-center w-full rounded-2xl py-3 bg-slate-900 text-white hover:bg-black transition">בואו נדבר</a>
