@@ -56,7 +56,7 @@ export default function TutoringLanding() {
                 <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
                   <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת רבי מלל</div>
                   <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת מתמטיקה</div>
-                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת אנגלית הנקרא</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת אנגלית</div>
                   <div className="rounded-2xl border p-3 shadow-sm">הכנה לבגרויות</div>
                 </div>
                 <a href="#contact" className="mt-6 block text-center w-full rounded-2xl py-3 bg-slate-900 text-white hover:bg-black transition">בואו נדבר</a>
