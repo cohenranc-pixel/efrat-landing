@@ -1,11 +1,12 @@
 'use client';
+import type { FormEvent } from 'react';
 
 export default function TutoringLanding() {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const el = document.getElementById('form-success');
+    const el = document.getElementById('form-success') as HTMLParagraphElement | null;
     if (el) el.classList.remove('hidden');
-    (e.target as HTMLFormElement).reset();
+    e.currentTarget.reset();
   }
 
   return (
@@ -53,10 +54,10 @@ export default function TutoringLanding() {
                   <p className="mt-3 text-slate-600">למידה שמרגישה בטוח, אישי ונעים.</p>
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-                  <div className="rounded-2xl border p-3 shadow-sm">אנגלית לבי״ס יסודי</div>
-                  <div className="rounded-2xl border p-3 shadow-sm">אנגלית לחטיבה</div>
-                  <div className="rounded-2xl border p-3 shadow-sm">הבנת הנקרא</div>
-                  <div className="rounded-2xl border p-3 shadow-sm">הכנה לבגרות</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת רבי מלל</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת מתמטיקה</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הוראה מותאמת אנגלית הנקרא</div>
+                  <div className="rounded-2xl border p-3 shadow-sm">הכנה לבגרויות</div>
                 </div>
                 <a href="#contact" className="mt-6 block text-center w-full rounded-2xl py-3 bg-slate-900 text-white hover:bg-black transition">בואו נדבר</a>
               </div>
@@ -69,13 +70,9 @@ export default function TutoringLanding() {
       <section className="px-4">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-4 md:gap-6">
           {[
-            {title: 'תואר שני בלקויות למידה', body: `הוראה מותאמת במקצועות רבי־מלל וגישת הוראה מותאמת גיל.
-הוראה מותאמת מתמטיקה
-הוראה מותאמת אנגלית
-הכנה לבגרויות`},
+            {title: 'תואר שני בלקויות למידה', body: `הוראה מותאמת במקצועות רבי־מלל וגישת הוראה מותאמת גיל`},
             {title: 'שיטות שעובדות', body: 'אסטרטגיות למידה וכלים פרקטיים שמעלים את הביטחון ואת ההישגים.'},
-            {title: 'ליווי מותאם', body: `גילאי בית ספר יסודי עד תיכון.
-פרונטלי (במקומות נבחרים) או אונליין בזום — מה שנוח למשפחה.`},
+            {title: 'ליווי מותאם', body: `גילאי בית ספר יסודי עד תיכון.\nפרונטלי (במקומות נבחרים) או אונליין בזום — מה שנוח למשפחה.`},
           ].map((card, i) => (
             <div key={i} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
@@ -85,8 +82,8 @@ export default function TutoringLanding() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="px-4 mt-12">
+      {/* Testimonials section - currently hidden. Remove 'hidden' class when ready to show. */}
+      <section className="px-4 mt-12 hidden">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">מה הורים מספרים</h2>
           <div className="grid md:grid-cols-3 gap-4 md:gap-6">
