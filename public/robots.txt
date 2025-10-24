@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
+# Host
+Host: https://efrat-landing.vercel.app
+
+# Sitemaps
 Sitemap: https://efrat-landing.vercel.app/sitemap.xml

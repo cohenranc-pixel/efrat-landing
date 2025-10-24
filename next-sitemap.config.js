@@ -2,5 +2,5 @@
 module.exports = {
   siteUrl: "https://efrat-landing.vercel.app",
   generateRobotsTxt: true,
-  sitemapSize: 7000,
+  sitemapSize: 0,
 };
