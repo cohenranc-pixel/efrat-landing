@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://efrat-landing.vercel.app/sitemap.xml
-Host: https://efrat-landing.vercel.app
+
