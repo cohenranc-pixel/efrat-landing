@@ -5,13 +5,11 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack && next-sitemap",
-    "postbuild": "echo Sitemap generated ✔",
     "start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "next": "15.5.5",
-    //"next-sitemap": "^4.2.3",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
