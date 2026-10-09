@@ -48,8 +48,9 @@ export default function TutoringLanding() {
         <div className="max-w-5xl mx-auto px-4 py-12 md:py-16 grid md:grid-cols-2 items-center gap-8">
           <div className="order-2 md:order-1">
             <h1 className="text-3xl md:text-5xl font-extrabold leading-[1.1] mb-4">
-              ללמוד. להבין. להצליח
+              אפרת כהן — שיעורים פרטיים והוראה מותאמת במודיעין
             </h1>
+            <p className="text-teal-700 font-semibold mb-3">ללמוד. להבין. להצליח</p>
             <p className="text-lg md:text-xl text-slate-600 mb-6">
               שיעורים פרטיים והוראה מותאמת במקצועות רבי־מלל, <span className="font-semibold">עם התמחות באנגלית</span> — כולל הכנה לבגרויות. דגש על פיתוח מיומנויות למידה, אסטרטגיות וכלים להצלחה.
             </p>
@@ -92,13 +93,33 @@ export default function TutoringLanding() {
           {[
             {title: 'תואר שני בלקויות למידה', body: `הוראה מותאמת במקצועות רבי־מלל וגישת הוראה מותאמת גיל`},
             {title: 'שיטות שעובדות', body: 'אסטרטגיות למידה וכלים פרקטיים שמעלים את הביטחון ואת ההישגים.'},
-            {title: 'ליווי מותאם', body: `גילאי בית ספר יסודי עד תיכון.\nפרונטלי (במקומות נבחרים) או אונליין בזום — מה שנוח למשפחה.`},
+            {title: 'ליווי מותאם', body: `גילאי בית ספר יסודי עד תיכון.\nפרונטלי במודיעין או אונליין בזום — מה שנוח למשפחה.`},
           ].map((card, i) => (
             <div key={i} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
               <p className="text-slate-600 leading-relaxed whitespace-pre-line">{card.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="faq-heading" className="px-4 mt-14">
+        <div className="max-w-3xl mx-auto">
+          <h2 id="faq-heading" className="text-2xl md:text-3xl font-bold mb-6">שאלות על שיעורים פרטיים במודיעין</h2>
+          <div className="space-y-3">
+            {[
+              { question: 'איפה מתקיימים השיעורים?', answer: 'השיעורים הפרונטליים מתקיימים במודיעין. אפשר גם ללמוד מרחוק בזום. לתיאום מקום ושעה, השאירו פרטים או התקשרו לאפרת.' },
+              { question: 'באילו מקצועות אפשר לקבל עזרה?', answer: 'אנגלית, מתמטיקה ומקצועות רבי־מלל, כולל הבנת הנקרא והכנה לבגרויות. הדגש הוא על הוראה מותאמת, אסטרטגיות למידה ובניית ביטחון עצמי.' },
+              { question: 'לאילו גילים השיעורים מתאימים?', answer: 'לתלמידים בבית הספר היסודי, בחטיבת הביניים ובתיכון. מסלול הלמידה מותאם לגיל ולצרכים של כל תלמיד ותלמידה.' },
+              { question: 'האם הלמידה אישית או בקבוצה?', answer: 'אפשר ללמוד במפגשים אישיים או קבוצתיים. בשיחה עם אפרת ניתן להתאים את מסגרת הלמידה לצורך שלכם.' },
+              { question: 'איך מתאמים שיעור עם אפרת?', answer: 'ממלאים את טופס הפנייה באתר או מתקשרים למספר 054-6154115. אפרת תחזור אליכם כדי לשוחח על הצורך ולתאם את המשך הדרך.' },
+            ].map(({ question, answer }) => (
+              <details key={question} className="rounded-2xl border border-slate-200 bg-white p-5">
+                <summary className="cursor-pointer font-semibold text-slate-900">{question}</summary>
+                <p className="mt-3 leading-relaxed text-slate-600">{answer}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -145,7 +166,7 @@ export default function TutoringLanding() {
       <footer className="px-4 pb-10">
         <div className="max-w-5xl mx-auto text-center text-slate-500">
           <p>© {new Date().getFullYear()} אפרת כהן — שיעורים פרטיים</p>
-          <p className="mt-1">פרונטלי (במקומות נבחרים) או בזום · התמחות באנגלית · הכנה לבגרויות</p>
+          <p className="mt-1">פרונטלי במודיעין או בזום · התמחות באנגלית · הכנה לבגרויות</p>
         </div>
       </footer>
 
