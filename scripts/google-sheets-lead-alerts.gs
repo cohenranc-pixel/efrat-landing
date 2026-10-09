@@ -68,7 +68,7 @@ function notifyNewLeads() {
         spreadsheet.getUrl()
       ].join('\n');
       try {
-        MailApp.sendEmail({to: recipient, subject: 'פנייה חדשה מהאתר של אפרת', body: body, name: 'התראות אתר אפרת'});
+        MailApp.sendEmail({to: recipient, subject: 'פנייה חדשה מהאתר של אפרת', body: body, htmlBody: buildLeadEmailHtml(r, spreadsheet.getUrl()), name: 'התראות אתר אפרת'});
         sheet.getRange(i + 2, 11).setValue('sent ' + new Date().toISOString());
         SpreadsheetApp.flush();
         quota--;
@@ -79,4 +79,50 @@ function notifyNewLeads() {
       }
     }
   } finally { lock.releaseLock(); }
+}
+
+function escapeLeadHtml(value) {
+  return String(value == null ? '' : value).replace(/[&<>"']/g, function (character) {
+    return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[character];
+  });
+}
+
+function buildLeadEmailHtml(r, sheetUrl) {
+  const safe = escapeLeadHtml;
+  const phone = String(r[3] || '').replace(/[^\d+]/g, '');
+  const phoneHtml = phone
+    ? '<a href="tel:' + safe(phone) + '" style="color:#0f766e;text-decoration:none;font-weight:bold"><span dir="ltr">' + safe(r[3]) + '</span></a>'
+    : safe(r[3]);
+  function field(label, value) {
+    return '<tr><td style="padding:14px 0;border-bottom:1px solid #e8edf0;color:#64748b;font-size:14px;width:35%;vertical-align:top">' +
+      label + '</td><td style="padding:14px 0;border-bottom:1px solid #e8edf0;color:#183344;font-size:16px;font-weight:bold;word-break:break-word">' +
+      value + '</td></tr>';
+  }
+  return '<!doctype html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>' +
+    '<body dir="rtl" style="margin:0;padding:0;background:#f1f5f7;font-family:Arial,Helvetica,sans-serif;text-align:right;color:#183344">' +
+    '<div style="display:none;max-height:0;overflow:hidden;mso-hide:all">פנייה חדשה מאת ' + safe(r[2]) + ' — כל הפרטים מחכים לך בפנים.</div>' +
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f1f5f7"><tr><td align="center" style="padding:32px 16px">' +
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" dir="rtl" style="max-width:600px;text-align:right">' +
+    '<tr><td style="padding:0 8px 20px;color:#183344;font-size:20px;font-weight:bold">אפרת כהן<span style="display:block;margin-top:6px;color:#64748b;font-size:13px;font-weight:normal">התראות מהאתר</span></td></tr>' +
+    '<tr><td style="background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e2e8ed">' +
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0">' +
+    '<tr><td style="background:#123b45;padding:28px 28px 30px;border-top:5px solid #49b6a5">' +
+    '<div style="color:#9be0d3;font-size:13px;font-weight:bold;margin-bottom:12px">פנייה חדשה התקבלה</div>' +
+    '<h1 style="margin:0;color:#ffffff;font-size:28px;line-height:1.4">יש לך מתעניינים חדשים</h1>' +
+    '<p style="margin:12px 0 0;color:#d8e8eb;font-size:15px;line-height:1.7">הפרטים נשמרו בגיליון ומוכנים להמשך טיפול.</p></td></tr>' +
+    '<tr><td style="padding:28px">' +
+    '<div style="color:#64748b;font-size:13px;margin-bottom:8px">שם ההורה</div>' +
+    '<h2 style="margin:0 0 10px;font-size:24px;line-height:1.5;color:#183344;word-break:break-word">' + safe(r[2]) + '</h2>' +
+    '<div style="color:#64748b;font-size:13px;line-height:1.7">מועד קבלת הפנייה: <span dir="ltr" style="display:inline-block">' + safe(r[0]) + ' &nbsp; ' + safe(r[1]) + '</span></div>' +
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:18px">' +
+    field('טלפון', phoneHtml) + field('כיתה / גיל', safe(r[4] || 'לא צוין')) + field('מקצוע', safe(r[5] || 'לא צוין')) +
+    '</table>' +
+    '<div style="margin-top:24px;color:#64748b;font-size:13px;font-weight:bold">הודעת הלקוח</div>' +
+    '<div style="margin-top:10px;padding:18px;background:#f4f8f9;border-right:3px solid #49b6a5;border-radius:8px;color:#334b59;font-size:15px;line-height:1.9;word-break:break-word">' +
+    safe(r[6] || 'לא נכתבה הודעה').replace(/\r\n|\r|\n/g, '<br>') + '</div>' +
+    '<table role="presentation" cellspacing="0" cellpadding="0" style="margin-top:28px"><tr><td bgcolor="#0f766e" style="border-radius:8px">' +
+    '<a href="' + safe(sheetUrl) + '" style="display:inline-block;padding:15px 24px;color:#ffffff;font-size:15px;font-weight:bold;text-decoration:none;border:1px solid #0f766e;border-radius:8px">פתיחת גיליון הפניות</a>' +
+    '</td></tr></table></td></tr></table></td></tr>' +
+    '<tr><td style="padding:20px 8px;color:#7b8b96;font-size:12px;line-height:1.8">הודעה אוטומטית מטופס ההרשמה באתר אפרת כהן.</td></tr>' +
+    '</table></td></tr></table></body></html>';
 }
