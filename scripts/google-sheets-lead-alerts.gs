@@ -10,10 +10,7 @@ function installLeadAlerts() {
   lock.waitLock(30000);
   try {
     const properties = PropertiesService.getScriptProperties();
-    const recipient = properties.getProperty('NOTIFICATION_EMAIL');
-    if (!recipient || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) {
-      throw new Error('Set NOTIFICATION_EMAIL in Project Settings > Script properties.');
-    }
+    getLeadAlertRecipients(properties);
     const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = spreadsheet.getSheetByName(LEAD_TAB);
     if (!sheet) throw new Error('Lead sheet not found');
@@ -43,7 +40,7 @@ function notifyNewLeads() {
   try {
     const properties = PropertiesService.getScriptProperties();
     if (properties.getProperty('LEAD_ALERTS_INITIALIZED') !== 'true') throw new Error('Run installLeadAlerts first');
-    const recipient = properties.getProperty('NOTIFICATION_EMAIL');
+    const recipients = getLeadAlertRecipients(properties);
     const spreadsheet = SpreadsheetApp.openById(properties.getProperty('LEAD_ALERT_SPREADSHEET_ID'));
     const sheet = spreadsheet.getSheetByName(LEAD_TAB);
     if (!sheet || sheet.getRange(1, 11).getDisplayValue() !== ALERT_HEADER) throw new Error('Notification status column missing');
@@ -52,7 +49,7 @@ function notifyNewLeads() {
     const rows = sheet.getRange(2, 1, count, 11).getDisplayValues();
     let quota = MailApp.getRemainingDailyQuota();
     // Use per-row status instead of a row-number cursor: leads may be sorted.
-    for (let i = 0; i < rows.length && quota > 0; i++) {
+    for (let i = 0; i < rows.length && quota >= recipients.length; i++) {
       const r = rows[i];
       if (r[10] || r[7] !== 'efrat-landing' || !r[2] || !r[3]) continue;
       const body = [
@@ -68,10 +65,10 @@ function notifyNewLeads() {
         spreadsheet.getUrl()
       ].join('\n');
       try {
-        MailApp.sendEmail({to: recipient, subject: 'פנייה חדשה מהאתר של אפרת', body: body, htmlBody: buildLeadEmailHtml(r, spreadsheet.getUrl()), name: 'התראות אתר אפרת'});
+        MailApp.sendEmail({to: recipients.join(','), subject: 'פנייה חדשה מהאתר של אפרת', body: body, htmlBody: buildLeadEmailHtml(r, spreadsheet.getUrl()), name: 'התראות אתר אפרת'});
         sheet.getRange(i + 2, 11).setValue('sent ' + new Date().toISOString());
         SpreadsheetApp.flush();
-        quota--;
+        quota -= recipients.length;
       } catch (error) {
         // Keep the row pending for the next scheduled run; do not log personal data.
         console.error('Lead notification failed at row ' + (i + 2));
@@ -125,4 +122,26 @@ function buildLeadEmailHtml(r, sheetUrl) {
     '</td></tr></table></td></tr></table></td></tr>' +
     '<tr><td style="padding:20px 8px;color:#7b8b96;font-size:12px;line-height:1.8">הודעה אוטומטית מטופס ההרשמה באתר אפרת כהן.</td></tr>' +
     '</table></td></tr></table></body></html>';
+}
+
+
+/**
+ * Keep NOTIFICATION_EMAIL as the primary recipient.
+ * ADDITIONAL_NOTIFICATION_EMAIL is optional; clear it to send only to the primary.
+ */
+function getLeadAlertRecipients(properties) {
+  const primary = (properties.getProperty('NOTIFICATION_EMAIL') || '').trim();
+  const additional = (properties.getProperty('ADDITIONAL_NOTIFICATION_EMAIL') || '').trim();
+  const emailPattern = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/;
+  if (!emailPattern.test(primary)) {
+    throw new Error('Set a valid NOTIFICATION_EMAIL in Project Settings > Script properties.');
+  }
+  if (additional && !emailPattern.test(additional)) {
+    throw new Error('Set a valid ADDITIONAL_NOTIFICATION_EMAIL or leave it empty.');
+  }
+  return [primary, additional].filter(function (email, index, all) {
+    return email && all.findIndex(function (other) {
+      return other.toLowerCase() === email.toLowerCase();
+    }) === index;
+  });
 }
