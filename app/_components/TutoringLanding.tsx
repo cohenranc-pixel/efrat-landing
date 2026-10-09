@@ -1,29 +1,31 @@
 'use client';
-import type { FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 
 export default function TutoringLanding() {
+  const sending = useRef(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    const fd = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(fd.entries());
-
+    if (sending.current) return;
+    const form = e.currentTarget;
+    const payload = Object.fromEntries(new FormData(form).entries());
+    sending.current = true;
+    setStatus('sending');
     try {
-      const url = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL as string;
-      const res = await fetch(url, {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      if (res.ok) {
-        document.getElementById('form-success')?.classList.remove('hidden');
-        e.currentTarget.reset();
-      } else {
-        console.error('n8n webhook failed', res.status);
-      }
-    } catch (err) {
-      console.error('Network error posting to n8n', err);
+      const result = await res.json();
+      if (!res.ok || result.ok !== true) throw new Error('Submission failed');
+      form.reset();
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    } finally {
+      sending.current = false;
     }
   }
 
@@ -107,7 +109,7 @@ export default function TutoringLanding() {
             <h2 className="text-2xl md:text-3xl font-bold mb-2">נשמח לשוחח ולהתאים מסלול אישי</h2>
             <p className="text-slate-600 mb-6">השאירו פרטים קצרים ונחזור אליכם בהקדם.</p>
 
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} aria-busy={status === 'sending'} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">שם ההורה</label>
                 <input name="parentName" required className="w-full rounded-2xl border border-slate-300 p-3" placeholder="לדוגמה: דנה כהן" />
@@ -129,10 +131,11 @@ export default function TutoringLanding() {
                 <textarea name="message" rows={4} className="w-full rounded-2xl border border-slate-300 p-3" placeholder="ספרו לנו בקצרה מה הצורך" />
               </div>
               <div className="md:col-span-2 flex flex-col md:flex-row items-start md:items-center gap-3">
-                <button type="submit" className="rounded-2xl px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 shadow transition">שלחו פרטים</button>
+                <button type="submit" disabled={status === 'sending'} className="rounded-2xl px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 shadow transition disabled:opacity-60 disabled:cursor-wait">{status === 'sending' ? 'שולח…' : 'שלחו פרטים'}</button>
                 <a href="tel:0546154115" className="rounded-2xl px-6 py-3 border border-slate-300 hover:bg-white shadow-sm transition">או התקשרו: 054-6154115</a>
               </div>
-              <p id="form-success" className="hidden md:col-span-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-2xl p-3 mt-2">תודה! הפרטים התקבלו ונחזור אליכם בהקדם.</p>
+              {status === 'success' && <p role="status" className="md:col-span-2 text-teal-700 bg-teal-50 border border-teal-200 rounded-2xl p-3 mt-2">תודה! הפרטים התקבלו ונחזור אליכם בהקדם.</p>}
+              {status === 'error' && <p role="alert" className="md:col-span-2 text-red-700 bg-red-50 border border-red-200 rounded-2xl p-3 mt-2">לא ניתן לאשר שהפרטים נשמרו. אנא התקשרו אלינו בטלפון 054-6154115.</p>}
             </form>
           </div>
         </div>
